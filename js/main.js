@@ -1,11 +1,16 @@
+//TO DO
+// edge case - /0 error
+
 const calculator = {
   displayValue: "0",
   firstOperand: null,
   waitingForSecondOperand: false,
   operator: null,
 };
+
 function inputDigit(digit) {
   const { displayValue, waitingForSecondOperand } = calculator;
+  //check if the digits entered are the second operand
   if (waitingForSecondOperand === true) {
     calculator.displayValue = digit;
     calculator.waitingForSecondOperand = false;
@@ -19,7 +24,7 @@ function inputDigit(digit) {
 }
 
 function inputDecimal(dot) {
-  //fix appending dot to the first operand after pressing the operator key
+  //fix appending dot to the first operand issue after pressing the operator key
   if (calculator.waitingForSecondOperand === true) {
     calculator.displayValue = "0.";
     calculator.waitingForSecondOperand = false;
@@ -30,12 +35,13 @@ function inputDecimal(dot) {
     calculator.displayValue += dot;
   }
 }
+
 function handleOperator(nextOperator) {
   //Destructure on the calculator object
   const { firstOperand, displayValue, operator } = calculator;
-  //parseFloat to convert to number
+  //parseFloat to convert to a number
   const inputValue = parseFloat(displayValue);
-  // allow new operator to overwrite previous operator before the second operand is entered
+  // allow new operator to overwrite previous operator if the second operand has not been entered
   if (operator && calculator.waitingForSecondOperand) {
     calculator.operator = nextOperator;
     console.log(calculator);
@@ -43,19 +49,22 @@ function handleOperator(nextOperator) {
   }
   //verify that firstOperand is null and the inputValue is not a Nan
   if (firstOperand === null && !isNaN(inputValue)) {
+    //assign display value to the first operand property
     calculator.firstOperand = inputValue;
-    //if operator property has been assignd an operator then do a calculation.
+    //if operator property has been assignd an operator then do the calculation.
   } else if (operator) {
     const result = calculate(firstOperand, inputValue, operator);
 
+    //fix long tail decimal memory issue
     calculator.displayValue = `${parseFloat(result.toFixed(7))}`;
+    //assign the calculated result to the first operand property readying for the next calculation if needed.
     calculator.firstOperand = result;
   }
-
   calculator.waitingForSecondOperand = true;
   calculator.operator = nextOperator;
   console.log(calculator);
 }
+
 function calculate(firstOperand, secondOperand, operator) {
   switch (operator) {
     case "+":
@@ -89,6 +98,7 @@ function updateDisplay() {
 updateDisplay();
 
 const keys = document.querySelector(".input");
+//event listner
 keys.addEventListener("click", (event) => {
   //Access the clicked element since all keys are children of this element
   const { target } = event;
@@ -117,7 +127,6 @@ keys.addEventListener("click", (event) => {
         inputDigit(value);
       }
   }
-
   //old code
   //   if (target.classList.contains("buttonOperator")) {
   //     handleOperator(target.value);
