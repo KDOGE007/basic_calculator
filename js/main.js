@@ -35,7 +35,12 @@ function handleOperator(nextOperator) {
   const { firstOperand, displayValue, operator } = calculator;
   //parseFloat to convert to number
   const inputValue = parseFloat(displayValue);
-
+  // allow new operator to overwrite previous operator before the second operand is entered
+  if (operator && calculator.waitingForSecondOperand) {
+    calculator.operator = nextOperator;
+    console.log(calculator);
+    return;
+  }
   //verify that firstOperand is null and the inputValue is not a Nan
   if (firstOperand === null && !isNaN(inputValue)) {
     calculator.firstOperand = inputValue;
@@ -43,7 +48,7 @@ function handleOperator(nextOperator) {
   } else if (operator) {
     const result = calculate(firstOperand, inputValue, operator);
 
-    calculator.displayValue = String(result);
+    calculator.displayValue = `${parseFloat(result.toFixed(7))}`;
     calculator.firstOperand = result;
   }
 
@@ -66,6 +71,14 @@ function calculate(firstOperand, secondOperand, operator) {
   }
 }
 
+function reset() {
+  calculator.displayValue = "0";
+  calculator.firstOperand = null;
+  calculator.waitingForSecondOperand = false;
+  calculator.operator = null;
+  console.log(calculator);
+}
+
 function updateDisplay() {
   //select the element with id of 'result'//
   const display = document.querySelector("#result");
@@ -79,105 +92,48 @@ const keys = document.querySelector(".input");
 keys.addEventListener("click", (event) => {
   //Access the clicked element since all keys are children of this element
   const { target } = event;
+  const { value } = target;
 
   if (!target.matches("button")) {
     return;
   }
-  if (target.classList.contains("buttonOperator")) {
-    handleOperator(target.value);
-    updateDisplay();
-    return;
+
+  switch (value) {
+    case "+":
+    case "-":
+    case "/":
+    case "*":
+    case "=":
+      handleOperator(value);
+      break;
+    case ".":
+      inputDecimal(value);
+      break;
+    case "all_clear":
+      reset();
+      break;
+    default:
+      if (Number.isInteger(parseFloat(value))) {
+        inputDigit(value);
+      }
   }
-  if (target.classList.contains("buttonDecimal")) {
-    inputDecimal(target.value);
-    updateDisplay();
-    return;
-  }
-  if (target.classList.contains("buttonClear")) {
-    console.log("buttonClear", target.value);
-    return;
-  }
-  inputDigit(target.value);
+
+  //old code
+  //   if (target.classList.contains("buttonOperator")) {
+  //     handleOperator(target.value);
+  //     updateDisplay();
+  //     return;
+  //   }
+  //   if (target.classList.contains("buttonDecimal")) {
+  //     inputDecimal(target.value);
+  //     updateDisplay();
+  //     return;
+  //   }
+  //   if (target.classList.contains("buttonClear")) {
+  //     reset();
+  //     updateDisplay();
+  //     return;
+  //   }
+  //   inputDigit(target.value);
   updateDisplay();
 });
-
-// const displayValue = document.querySelector("#result");
-// const decimal = document.querySelector("#decimal");
-// const clear = document.querySelector("#clear");
-// const nums = document.querySelectorAll(".buttonNumber");
-// const operators = document.querySelectorAll(".buttonOperator");
-
-// // variables to store the values ultimately for .eval method
-// var display = "0";
-// var pendingInput;
-// var evalValueArray = [];
-
-// // display funtion - displaying value//
-// updateDisplay = (e) => {
-//   var btnValue = e.target.innerText;
-//   if (display === "0") {
-//     display = "";
-//   }
-//   // appending the input to displayValue & display it//
-//   display += btnValue;
-//   displayValue.innerText = display;
-// };
-
-// //debuging fuction -alert//
-// function debug() {
-//   alert("test");
-// }
-
-// // calculation funtion//
-// calculate = (e) => {
-//   var operator = e.target.innerText;
-
-//   switch (operator) {
-//     case "+":
-//       pendingInput = display;
-//       display = "0";
-//       displayValue.innerText = display;
-//       evalValueArray.push(pendingInput);
-//       evalValueArray.push("+");
-//       break;
-//     case "-":
-//       pendingInput = display;
-//       display = "0";
-//       displayValue.innerText = display;
-//       evalValueArray.push(pendingInput);
-//       evalValueArray.push("-");
-//       break;
-//     case "x":
-//       pendingInput = display;
-//       display = "0";
-//       displayValue.innerText = display;
-//       evalValueArray.push(pendingInput);
-//       evalValueArray.push("*");
-//       break;
-//     case "/":
-//       pendingInput = display;
-//       display = "0";
-//       displayValue.innerText = display;
-//       evalValueArray.push(pendingInput);
-//       evalValueArray.push("/");
-//       break;
-//     case "=":
-//       evalValueArray.push(display);
-//       let evaluate = eval(evalValueArray.join(" "));
-//       result = evaluate + "";
-//       displayValue.innerText = result;
-//       evalValueArray = [];
-//       break;
-//     default:
-//       break;
-//   }
-// };
-
-// // event listeners//
-// Array.from(nums).forEach((element) =>
-//   element.addEventListener("click", updateDisplay)
-// );
-
-// Array.from(operators).forEach((element) =>
-//   element.addEventListener("click", calculatea)
-// );
