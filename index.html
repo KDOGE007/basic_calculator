@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Calculator web app</title>
+    <link rel="stylesheet" href="css/normalize.css" />
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body>
+    <h1>Calculator</h1>
+    <section class="container">
+      <section class="display">
+        <h2><span id="result">test</span></h2>
+      </section>
+      <section class="input">
+        <section class="top">
+          <button id="seven" class="button buttonNumber" value="7">7</button>
+          <button id="eight" class="button buttonNumber" value="8">8</button>
+          <button id="nine" class="button buttonNumber" value="9">9</button>
+          <button id="divide" class="button buttonOperator" value="/">/</button>
+        </section>
+        <section class="midHigh">
+          <button id="four" class="button buttonNumber" value="4">4</button>
+          <button id="five" class="button buttonNumber" value="5">5</button>
+          <button id="six" class="button buttonNumber" value="6">6</button>
+          <button id="multiply" class="button buttonOperator" value="*">
+            x
+          </button>
+        </section>
+        <section class="midLow">
+          <button id="one" class="button buttonNumber" value="1">1</button>
+          <button id="two" class="button buttonNumber" value="2">2</button>
+          <button id="three" class="button buttonNumber" value="3">3</button>
+          <button id="plus" class="button buttonOperator" value="+">+</button>
+        </section>
+        <section class="bottom">
+          <button id="zero" class="button buttonNumber" value="0">0</button>
+          <button id="decimal" class="button buttonDecimal" value=".">.</button>
+          <button id="clear" class="button buttonClear" value="all_clear">
+            AC
+          </button>
+          <button id="minus" class="button buttonOperator" value="-">-</button>
+        </section>
+        <section>
+          <button id="equal" class="button buttonOperator equal" value="=">
+            =
+          </button>
+        </section>
+      </section>
+    </section>
+    <script type="text/javascript" src="js/main.js"></script>
+  </body>
+</html>
