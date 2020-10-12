@@ -97,6 +97,9 @@ button:active {
 }
 
 @media screen and (max-width: 320px) {
+  html {
+    background: pink;
+  }
   h1 {
     font-size: 3rem;
   }
