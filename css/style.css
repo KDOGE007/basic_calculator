@@ -113,6 +113,7 @@ button:active {
   }
   #equal {
     width: 220px;
+    height: 25px;
   }
   button {
     width: 20%;
