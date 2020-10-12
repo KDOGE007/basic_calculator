@@ -1,5 +1,7 @@
 //TO DO
 // edge case - /0 error
+// add positive, negative symbol
+// add keyboard id corresponding to buttons
 
 const calculator = {
   displayValue: "0",
@@ -100,7 +102,7 @@ updateDisplay();
 const keys = document.querySelector(".input");
 //event listner
 keys.addEventListener("click", (event) => {
-  //Access the clicked element since all keys are children of this element
+  //Access the clicked element since all keys are children of .input
   const { target } = event;
   const { value } = target;
 

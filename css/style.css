@@ -81,7 +81,7 @@ button:active {
   display: flex;
 }
 
-@media (min-width: 400px) and (max-width: 600px) {
+@media (min-width: 320px) and (max-width: 720px) {
   .container {
     width: 400px;
   }
@@ -93,6 +93,29 @@ button:active {
   }
   #equal {
     width: 310px;
+  }
+}
+
+@media screen and (max-width: 320px) {
+  h1 {
+    font-size: 3rem;
+  }
+  .container {
+    width: 320px;
+  }
+  .display {
+    width: 300px;
+  }
+  .input {
+    width: 280px;
+  }
+  #equal {
+    width: 250px;
+  }
+  button {
+    width: 65px;
+    height: 65px;
+    font-size: 2rem;
   }
 }
 /******************************************
