@@ -101,19 +101,19 @@ button:active {
     font-size: 3rem;
   }
   .container {
-    width: 320px;
-  }
-  .display {
     width: 300px;
   }
-  .input {
+  .display {
     width: 280px;
   }
-  #equal {
+  .input {
     width: 250px;
   }
+  #equal {
+    width: 2200px;
+  }
   button {
-    width: 65px;
+    width: 20%;
     height: 65px;
     font-size: 2rem;
   }
