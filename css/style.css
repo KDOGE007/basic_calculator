@@ -113,8 +113,8 @@ button:active {
     width: 2200px;
   }
   button {
-    width: 20%;
-    height: 65px;
+    width: 30px;
+    height: 35px;
     font-size: 2rem;
   }
 }
