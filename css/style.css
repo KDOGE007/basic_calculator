@@ -81,7 +81,7 @@ button:active {
   display: flex;
 }
 
-@media (min-width: 320px) and (max-width: 720px) {
+@media (min-width: 320px) and (max-width: 768px) {
   .container {
     width: 400px;
   }
@@ -116,7 +116,7 @@ button:active {
     width: 2200px;
   }
   button {
-    width: 30px;
+    width: 40px;
     height: 35px;
     font-size: 2rem;
   }
